@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "RP2350 Flash",
+            "type": "shell",
+            "group": "build",
+            "command": [
+                "cd build;",
+                "make;",
+                "openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c \"adapter speed 5000\" -c \"program pi-hello-world.elf verify reset exit\";"
+            ]
+        },
+        {
+            "label": "RP2350 Make",
+            "type": "shell",
+            "group": "build",
+            "command": [
+                "cd build;",
+                "make;"
+            ]
+        },
+        {
+            "label": "RP2350 Clean",
+            "type": "shell",
+            "group": "build",
+            "command": [
+                "rm -rf build;",
+                "mkdir build;",
+                "cd build;",
+                "cmake -DPICO_PLATFORM=rp2350 ..;"
+            ]
+        },
+        {
+            "label": "ELF objdump",
+            "type": "shell",
+            "group" : "build",
+            "command":[
+                "arm-none-eabi-objdump -d build/pi-hello-world.elf > build/objdump.log;"
+            ]
+        }
+    ]
+}
